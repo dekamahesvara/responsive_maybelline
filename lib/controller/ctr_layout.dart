@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LayoutController extends GetxController with WidgetsBindingObserver {
+class ControllerLayout extends GetxController with WidgetsBindingObserver {
   RxBool isMobileLayout = true.obs;
 
   @override

@@ -1,10 +1,13 @@
 import 'package:firstapi/controller/ctr_api.dart';
+import 'package:firstapi/controller/ctr_db.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 
-class MobileProduct extends StatelessWidget {
+class TabletProduct extends StatelessWidget {
   final ControllerApi controllerApi;
-  const MobileProduct({Key? key, required this.controllerApi})
+  final ControllerDB controllerDB;
+  const TabletProduct(
+      {Key? key, required this.controllerApi, required this.controllerDB})
       : super(key: key);
 
   @override
@@ -14,7 +17,13 @@ class MobileProduct extends StatelessWidget {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
+          : GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: calculateCrossAxisCount(context),
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
+                childAspectRatio: 0.6,
+              ),
               itemCount: controllerApi.belajarApi.length,
               itemBuilder: (context, index) {
                 final data = controllerApi.belajarApi[index];
@@ -24,14 +33,16 @@ class MobileProduct extends StatelessWidget {
                     color: Colors.white,
                   ),
                   margin: const EdgeInsets.all(20),
-                  child: Row(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Image.network(
                         data.imageLink,
-                        width: 200,
-                        height: 200,
+                        width: 150,
+                        height: 150,
                       ),
-                      Expanded(
+                      Padding(
+                        padding: const EdgeInsets.all(10),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Column(
@@ -40,7 +51,7 @@ class MobileProduct extends StatelessWidget {
                               Text(
                                 data.name,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -62,5 +73,14 @@ class MobileProduct extends StatelessWidget {
               },
             );
     });
+  }
+
+  int calculateCrossAxisCount(BuildContext context) {
+    double itemWidth = 250.0;
+
+    int crossAxisCount =
+        (MediaQuery.of(context).size.width / itemWidth).floor();
+
+    return crossAxisCount > 0 ? crossAxisCount : 1;
   }
 }

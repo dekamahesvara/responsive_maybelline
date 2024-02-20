@@ -100,9 +100,9 @@ class BelajarApi {
       };
 }
 
-enum Brand { MAYBELLINE }
+enum Brand { maybelline }
 
-final brandValues = EnumValues({"maybelline": Brand.MAYBELLINE});
+final brandValues = EnumValues({"maybelline": Brand.maybelline});
 
 class ProductColor {
   String hexValue;

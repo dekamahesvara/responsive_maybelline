@@ -1,9 +1,12 @@
-import 'package:firstapi/products.dart';
+import 'package:firstapi/db/db_helper.dart';
+import 'package:firstapi/pages/products.dart';
 import 'package:firstapi/controller/ctr_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DbHelper.initDb();
   runApp(const MyApp());
 }
 
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: Products(),
+      home: const Products(),
     );
   }
 }
